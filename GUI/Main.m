@@ -77,6 +77,14 @@ varargout{1} = handles.output;
 function Array_Callback(hObject, eventdata, handles)
 val=get(handles.Array,'value');
 switch val
+    case 1
+        set(handles.MicN,'enable','off');
+        set(handles.ArrayD,'enable','off');
+        set(handles.ArrayR,'enable','off');
+        set(handles.XMicN,'enable','off');
+        set(handles.YMicN,'enable','off');
+        set(handles.XArrayD,'enable','off'); 
+        set(handles.YArrayD,'enable','off');
     case 2
         set(handles.MicN,'enable','on');
         set(handles.ArrayD,'enable','on');
@@ -175,6 +183,18 @@ end
 function Signal_Callback(hObject, eventdata, handles)
 val=get(handles.Signal,'Value');
 switch val
+    case 1
+        set(handles.Mu,'enable','off');
+        set(handles.Sigma,'enable','off');
+        set(handles.FS,'enable','off');
+        set(handles.SNR,'enable','off');
+        set(handles.Snap,'enable','off');
+        set(handles.Amp,'enable','off');
+        set(handles.Fre,'enable','off');
+        set(handles.Psi,'enable','off');
+        set(handles.Path,'enable','off');
+        set(handles.Noise,'enable','off');
+        set(handles.Noise,'enable','on');
     case 2
         set(handles.Mu,'enable','on');
         set(handles.Sigma,'enable','on');
@@ -185,6 +205,7 @@ switch val
         set(handles.Fre,'enable','off');
         set(handles.Psi,'enable','off');
         set(handles.Path,'enable','off');
+        set(handles.Noise,'enable','on');
     case {3,4}
         set(handles.Mu,'enable','off');
         set(handles.Sigma,'enable','off');
@@ -195,6 +216,7 @@ switch val
         set(handles.Fre,'enable','on');
         set(handles.Psi,'enable','on');
         set(handles.Path,'enable','off');
+        set(handles.Noise,'enable','on');
     case 5
         set(handles.Mu,'enable','off');
         set(handles.Sigma,'enable','off');
@@ -205,7 +227,10 @@ switch val
         set(handles.Fre,'enable','off');
         set(handles.Psi,'enable','off');
         set(handles.Path,'enable','on');
+        
         set(handles.Noise,'enable','off');
+        set(handles.Noise,'Value',1);
+        
 end
 % hObject    handle to Signal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -669,18 +694,34 @@ end
 function Noise_Callback(hObject, eventdata, handles)
 val=get(handles.Noise,'Value');
 switch val
+    case 1
+        set(handles.SigmaN,'enable','off');
+        set(handles.MuN,'enable','off');
+        set(handles.AmpN,'enable','off');
+        set(handles.FreN,'enable','off');
+        set(handles.PsiN,'enable','off');
     case 2
         set(handles.SigmaN,'enable','on');
         set(handles.MuN,'enable','on');
         set(handles.AmpN,'enable','off');
         set(handles.FreN,'enable','off');
         set(handles.PsiN,'enable','off');
+        set(handles.SNR,'enable','on');
     case {3,4}
         set(handles.SigmaN,'enable','off');
         set(handles.MuN,'enable','off');
         set(handles.AmpN,'enable','on');
         set(handles.FreN,'enable','on');
         set(handles.PsiN,'enable','on');
+        set(handles.SNR,'enable','on');
+    case 5%No Noise
+        set(handles.SigmaN,'enable','off');
+        set(handles.MuN,'enable','off');
+        set(handles.AmpN,'enable','off');
+        set(handles.FreN,'enable','off');
+        set(handles.PsiN,'enable','off');
+        set(handles.SNR,'enable','off');
+        
 end
 % hObject    handle to Noise (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -783,19 +824,7 @@ end
 
 % --- Executes on button press in Run.
 function Run_Callback(hObject, eventdata, handles)
-axes(handles.axes1)
-t=0:0.001:4*pi;
-f=sin(t);
-subplot(t,f,1,'g')
-axis([0 4*pi -1 1])
-grid on
-xlabel('t')
-ylabel('sin(t)')
-title('ÕýÏÒº¯ÊýÍ¼Ïñ')
-legend('f=sin(t)')
-hold on;
-f=cos(t);
-subplot(t,f,'g');
+GetSignal(1,0,0,0,0,0,0,0,0);
 % hObject    handle to Run (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
