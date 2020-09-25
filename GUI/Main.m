@@ -22,7 +22,7 @@ function varargout = Main(varargin)
 
 % Edit the above text to modify the response to help Main
 
-% Last Modified by GUIDE v2.5 18-Sep-2020 16:30:59
+% Last Modified by GUIDE v2.5 24-Sep-2020 18:46:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -462,17 +462,17 @@ end
 
 
 function Sigma_Callback(hObject, eventdata, handles)
-% hObject    handle to Sigma (see GCBO)
+% hObject    handle to MuN (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of Sigma as text
-%        str2double(get(hObject,'String')) returns contents of Sigma as a double
+% Hints: get(hObject,'String') returns contents of MuN as text
+%        str2double(get(hObject,'String')) returns contents of MuN as a double
 
 
 % --- Executes during object creation, after setting all properties.
 function Sigma_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to Sigma (see GCBO)
+% hObject    handle to MuN (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -824,7 +824,47 @@ end
 
 % --- Executes on button press in Run.
 function Run_Callback(hObject, eventdata, handles)
-GetSignal(1,0,0,0,0,0,0,0,0);
+%% struct Array
+Array.val=get(handles.Array,'Value');
+Array.MicN=str2num(get(handles.MicN,'String'));
+Array.ArrayD=str2num(get(handles.ArrayD,'String'));
+Array.ArrayR=str2num(get(handles.ArrayR,'String'));
+Array.XMicN=str2num(get(handles.XMicN,'String'));
+Array.YMicN=str2num(get(handles.YMicN,'String'));
+Array.XArrayD=str2num(get(handles.XArrayD,'String'));
+Array.YArrayD=str2num(get(handles.YArrayD,'String'));
+%% struct Signal
+Signal.val=get(handles.Signal,'Value');
+Signal.Amp=str2num(get(handles.Amp,'String'));
+Signal.Fre=str2num(get(handles.Fre,'String'));
+Signal.Psi=str2num(get(handles.Psi,'String'));
+Signal.Mu=str2num(get(handles.Mu,'String'));
+Signal.Sigma=str2num(get(handles.MuN,'String'));
+Signal.Path=str2num(get(handles.Path,'String'));
+%% struct Noise
+Noise.val=get(handles.Noise,'Value');
+Noise.AmpN=str2num(get(handles.AmpN,'String'));
+Noise.FreN=str2num(get(handles.FreN,'String'));
+Noise.PsiN=str2num(get(handles.PsiN,'String'));
+Noise.MuN=str2num(get(handles.MuN,'String'));
+Noise.SigmaN=str2num(get(handles.SigmaN,'String'));
+%% struct Experiment
+Experiment.val=get(handles.Algorithm,'Value');
+Experiment.Theta=get(handles.Theta,'String');
+Experiment.Phi=get(handles.Phi,'String');
+%% Snr,Snap,Fs
+SnrString=get(handles.SNR,'String');
+SnapString=get(handles.Snap,'String');
+FsString=get(handles.FS,'String');
+%% 
+ProcessMain(Array,Signal,Noise,Experiment,SnrString,SnapString,FsString);
 % hObject    handle to Run (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes during object creation, after setting all properties.
+function figure1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called

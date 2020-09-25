@@ -9,19 +9,19 @@
 %snap:snapshot
 
 %% output: the signal
-function Signal=GetSignal(val,Fre,Amp,Psi,Mu,Sigma,Path,Fs,Snap)
-if val==1
+function S=GetSignal(Signal,Fs,Snap)
+if Signal.val==1
     mode=struct('WindowStyle','modal','Interpreter','tex');%modal即为模态
     errordlg('请设置正确信号参数','错误',mode);
     return ;
 end
-switch val
+switch Signal.val
     case 2
-        Signal=getGaussSignal(Mu,Sigma,Snap);
+        S=getGaussSignal(Signal.Mu,Signal.Sigma,Snap);
     case 3
-        Signal=getSinSignal(Fre,Amp,Psi,Fs,Snap);
+        S=getSinSignal(Signal.Fre,Signal.Amp,Signal.Psi,Fs,Snap);
     case 4
-        Signal=getCosSignal(Fre,Amp,Psi,Fs,Snap);
+        S=getCosSignal(Signal.Fre,Signal.Amp,Signal.Psi,Fs,Snap);
     case 5
-        Signal=getSignalByFile(path);
+        S=getSignalByFile(Signal.Path);
 end

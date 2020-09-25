@@ -7,19 +7,19 @@
 %Fs:the sample frequency
 %Snap:the snapshot
 %Snr:signal to noise ratio
-function X=AddNoise(Signal,val,FreN,AmpN,PsiN,Fs,Snap,Snr)
-if val==1
+function X=AddNoise(S,Noise,Fs,Snap,Snr)
+if Noise.val==1
     mode=struct('WindowStyle','modal','Interpreter','tex');%modal即为模态
     errordlg('请设置正确噪音参数','错误',mode);
     return ;
 end
-switch val
+switch Noise.val
     case 2 
-        X=AddGaussNoise(Signal,Snr);
+        X=AddGaussNoise(S,Snr);
     case 3
-        X=AddSinNoise(Signal,FreN,AmpN,PsiN,Fs,Snap,Snr);
+        X=AddSinNoise(S,Noise.FreN,Noise.AmpN,Noise.PsiN,Fs,Snap,Snr);
     case 4
-        X=AddCosNoise(Signal,FreN,AmpN,PsiN,Fs,Snap,Snr);
+        X=AddCosNoise(S,Noise.FreN,Noise.AmpN,Noise.PsiN,Fs,Snap,Snr);
     case 5
-        X=Signal;    
+        X=S;    
 end
